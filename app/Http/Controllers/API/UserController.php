@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return User::latest()->paginate(10);
     }
 
     /**
@@ -34,19 +34,13 @@ class UserController extends Controller
             'password' => 'required|string|min:4',
         ]);
 
-        $user = User::create([
+        return User::create([
             'name' => $request->name,
             'email' => $request->email,
             'biography' => $request->biography,
             'level' => $request->level,
             'password' => Hash::make($request->password),
             'photo' => $request->photo ?? '',
-        ]);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'User created successfully.',
-            'data' => $user,
         ]);
     }
 
