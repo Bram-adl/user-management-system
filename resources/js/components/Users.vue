@@ -1,12 +1,102 @@
 <template>
     <div class="container">
-        <div class="row py-4 justify-content-center">
-            <div class="col-md-8">
+        <div class="row py-4">
+            <div class="col-12">
                 <div class="card">
-                    <div class="card-header">Users Component</div>
+                    <div class="card-header">
+                        <h3 class="card-title">Users Table</h3>
 
-                    <div class="card-body">
-                        I'm a user component.
+                        <div class="card-tools">
+                            <!-- Button trigger modal -->
+                            <button
+                                type="button"
+                                class="btn btn-success"
+                                data-toggle="modal"
+                                data-target="#exampleModal"
+                            >
+                                <i class="fas fa-user-plus mr-1"></i>
+                                <span>Add user</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Type</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>183</td>
+                                    <td>John Doe</td>
+                                    <td>11-7-2014</td>
+                                    <td>
+                                        <span class="tag tag-success"
+                                            >Approved</span
+                                        >
+                                    </td>
+                                    <td>
+                                        <a href="#" class="green">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        |
+                                        <a href="#" class="red">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div
+            class="modal fade"
+            id="exampleModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                            Add New User
+                        </h5>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal"
+                        >
+                            Close
+                        </button>
+                        <button type="button" class="btn btn-primary">
+                            Create User
+                        </button>
                     </div>
                 </div>
             </div>
@@ -15,9 +105,9 @@
 </template>
 
 <script>
-    export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
+export default {
+    mounted() {
+        console.log("Component mounted.");
     }
+};
 </script>
