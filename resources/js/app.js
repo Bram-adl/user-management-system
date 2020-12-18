@@ -61,6 +61,20 @@ const options = {
 Vue.use(VueProgressBar, options)
 
 /**
+ * Add Sweet Alert 2
+ */
+
+import Swal from 'sweetalert2'
+
+window.Swal = Swal
+window.Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+})
+
+/**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
  * components and automatically register them with their "basename".

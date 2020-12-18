@@ -235,6 +235,14 @@ export default {
             this.form.post("api/user")
                 .then(() => {
                     this.$Progress.finish()
+
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'User created successfully.'
+                    })
+
+                    $('#exampleModal').modal('hide')
+                    
                     this.fetchUsers();
                 })
                 .catch(error => {
