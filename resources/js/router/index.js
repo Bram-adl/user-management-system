@@ -10,6 +10,11 @@ const routes = [
         component: require('../components/Home.vue').default,
     },
     {
+        path: '/users',
+        name: 'users',
+        component: require('../components/Users.vue').default,
+    },
+    {
         path: '/profile',
         name: 'profile',
         component: require('../components/Profile.vue').default,

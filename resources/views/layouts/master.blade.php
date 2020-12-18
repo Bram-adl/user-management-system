@@ -78,15 +78,9 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <router-link to="/user" class="nav-link">
-                                        <i class="fas fa-circle nav-icon"></i>
-                                        <p>User</p>
-                                    </router-link>
-                                </li>
-                                <li class="nav-item">
-                                    <router-link to="/admin" class="nav-link">
-                                        <i class="fas fa-circle nav-icon"></i>
-                                        <p>Admin</p>
+                                    <router-link to="/users" class="nav-link">
+                                        <i class="fas fa-users nav-icon"></i>
+                                        <p>Users</p>
                                     </router-link>
                                 </li>
                             </ul>
