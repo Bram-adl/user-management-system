@@ -8,7 +8,22 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+/**
+ * Vue router
+ */
+
 import router from './router'
+
+/**
+ * VForm Config
+ */
+
+import { Form, HasError, AlertError } from 'vform'
+
+Vue.component(HasError.name, HasError)
+Vue.component(AlertError.name, AlertError)
+
+window.Form = Form
 
 /**
  * The following block of code may be used to automatically register your
