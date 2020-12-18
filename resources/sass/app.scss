@@ -15,3 +15,9 @@ $fa-font-path: "../webfonts";
 @import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
 @import "~@fortawesome/fontawesome-free/scss/brands.scss";
+
+// Active Router Link
+.router-link-exact-active {
+    background: linear-gradient(135deg, rgb(75, 104, 233), rgb(62, 87, 197));
+    color: #fff !important;
+}

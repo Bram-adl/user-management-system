@@ -48247,3 +48247,8 @@ readers do not read off random characters that represent icons */
   font-weight: 400;
 }
 
+.router-link-exact-active {
+  background: linear-gradient(135deg, #4b68e9, #3e57c5);
+  color: #fff !important;
+}
+
