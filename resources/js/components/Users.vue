@@ -40,8 +40,8 @@
                                     <td>{{ index + 1 }}</td>
                                     <td>{{ user.name }}</td>
                                     <td>{{ user.email }}</td>
-                                    <td>{{ user.level }}</td>
-                                    <td>{{ user.created_at }}</td>
+                                    <td>{{ user.level | capitalize }}</td>
+                                    <td>{{ user.created_at | time }}</td>
                                     <td>
                                         <a href="#" class="green">
                                             <i class="fas fa-edit"></i>

@@ -26,6 +26,19 @@ Vue.component(AlertError.name, AlertError)
 window.Form = Form
 
 /**
+ * Vue Global Filters
+ */
+
+Vue.filter('capitalize', function (text) {
+    return text.slice(0,1).toUpperCase() + text.slice(1)
+})
+
+import moment from 'moment'
+Vue.filter('time', function (time) {
+    return moment(time).format('LL')
+})
+
+/**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
  * components and automatically register them with their "basename".
