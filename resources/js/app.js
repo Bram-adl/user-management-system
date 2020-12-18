@@ -35,8 +35,30 @@ Vue.filter('capitalize', function (text) {
 
 import moment from 'moment'
 Vue.filter('time', function (time) {
-    return moment(time).format('LL')
+    return moment(time).format('MMMM Do, YYYY')
 })
+
+/**
+ * Vue Progress Bar
+ */
+
+import VueProgressBar from 'vue-progressbar'
+
+const options = {
+    color: '#bffaf3',
+    failedColor: '#874b4b',
+    thickness: '4px',
+    transition: {
+      speed: '0.2s',
+      opacity: '0.6s',
+      termination: 300
+    },
+    autoRevert: true,
+    location: 'top',
+    inverse: false
+}
+  
+Vue.use(VueProgressBar, options)
 
 /**
  * The following block of code may be used to automatically register your

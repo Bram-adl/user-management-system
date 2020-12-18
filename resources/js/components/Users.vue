@@ -84,10 +84,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form
-                        autocomplete="off"
-                        @submit.prevent="createUser"
-                    >
+                    <form autocomplete="off" @submit.prevent="createUser">
                         <div class="modal-body">
                             <div class="form-group">
                                 <input
@@ -209,35 +206,40 @@ export default {
     data: function() {
         return {
             users: {},
-            
+
             form: new Form({
                 name: "",
                 email: "",
                 password: "",
                 level: "",
                 biography: "",
-                photo: "profile.png",
+                photo: "profile.png"
             })
         };
     },
 
-    mounted: function () {
-        this.fetchUsers()
+    mounted: function() {
+        this.fetchUsers();
     },
 
     methods: {
-        fetchUsers: function () {
-            axios.get('api/user')
-                .then(({data}) => {
-                    this.users = data.data
-                })
+        fetchUsers: function() {
+            axios.get("api/user").then(({ data }) => {
+                this.users = data.data;
+            });
         },
-        
-        createUser: function () {
-            this.form.post('api/user')
+
+        createUser: function() {
+            this.$Progress.start()
+            
+            this.form.post("api/user")
                 .then(() => {
-                    this.fetchUsers()
+                    this.$Progress.finish()
+                    this.fetchUsers();
                 })
+                .catch(error => {
+                    this.$Progress.fail()
+                });
         }
     }
 };
