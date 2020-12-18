@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>AdminLTE 3 | Starter</title>
+    <title>UMS Laravel | Admin Dashboard</title>
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 
 <body class="hold-transition sidebar-mini">
-    <div class="wrapper">
+    <div class="wrapper" id="app">
 
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -61,12 +61,12 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <router-link to="/home" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
                                     Dashboard
                                 </p>
-                            </a>
+                            </router-link>
                         </li>
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link active">
@@ -78,26 +78,26 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link active">
+                                    <router-link to="/user" class="nav-link active">
                                         <i class="fas fa-circle nav-icon"></i>
                                         <p>User</p>
-                                    </a>
+                                    </router-link>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <router-link to="/admin" class="nav-link">
                                         <i class="fas fa-circle nav-icon"></i>
                                         <p>Admin</p>
-                                    </a>
+                                    </router-link>
                                 </li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <router-link to="/profile" class="nav-link">
                                 <i class="nav-icon fas fa-user"></i>
                                 <p>
                                     Profile
                                 </p>
-                            </a>
+                            </router-link>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -118,11 +118,7 @@
         <div class="content-wrapper">
             <!-- Main content -->
             <div class="content">
-                <div class="container-fluid">
-                    <div class="row">
-
-                    </div>
-                </div><!-- /.container-fluid -->
+                <router-view></router-view>
             </div>
             <!-- /.content -->
         </div>
