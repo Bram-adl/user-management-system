@@ -2237,7 +2237,7 @@ __webpack_require__.r(__webpack_exports__);
         password: "",
         level: "",
         biography: "",
-        photo: ""
+        photo: "profile.png"
       })
     };
   },
@@ -39111,7 +39111,7 @@ var render = function() {
                       }),
                       _vm._v(" "),
                       _c("has-error", {
-                        attrs: { form: _vm.form, field: "name" }
+                        attrs: { form: _vm.form, field: "email" }
                       })
                     ],
                     1

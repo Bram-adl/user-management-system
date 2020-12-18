@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -25,10 +27,26 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users',
+            'level' => 'required|string',
+            'password' => 'required|string|min:4',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'biography' => $request->biography,
+            'level' => $request->level,
+            'password' => Hash::make($request->password),
+            'photo' => $request->photo ?? '',
+        ]);
+
         return response()->json([
             'success' => true,
-            'message' => 'Data received successfully.',
-            'data' => $request->all(),
+            'message' => 'User created successfully.',
+            'data' => $user,
         ]);
     }
 

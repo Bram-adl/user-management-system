@@ -118,7 +118,7 @@
                                 />
                                 <has-error
                                     :form="form"
-                                    field="name"
+                                    field="email"
                                 ></has-error>
                             </div>
 
@@ -213,7 +213,7 @@ export default {
                 password: "",
                 level: "",
                 biography: "",
-                photo: ""
+                photo: "profile.png",
             })
         };
     },
