@@ -2241,33 +2241,37 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    var _this = this;
+
     this.fetchUsers();
+    eventBus.$on('fetchUser', function () {
+      return _this.fetchUsers();
+    });
   },
   methods: {
     fetchUsers: function fetchUsers() {
-      var _this = this;
+      var _this2 = this;
 
       axios.get("api/user").then(function (_ref) {
         var data = _ref.data;
-        _this.users = data.data;
+        _this2.users = data.data;
       });
     },
     createUser: function createUser() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.$Progress.start();
       this.form.post("api/user").then(function () {
-        _this2.$Progress.finish();
+        _this3.$Progress.finish();
 
         Toast.fire({
           icon: 'success',
           title: 'User created successfully.'
         });
         $('#exampleModal').modal('hide');
-
-        _this2.fetchUsers();
+        eventBus.$emit('fetchUser');
       })["catch"](function (error) {
-        _this2.$Progress.fail();
+        _this3.$Progress.fail();
       });
     }
   }
@@ -80003,6 +80007,11 @@ window.Toast = sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.mixin({
   showConfirmButton: false,
   timer: 3000
 });
+/**
+ * Vue JS Custom Event using Event Bus
+ */
+
+window.eventBus = new Vue();
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

@@ -220,6 +220,8 @@ export default {
 
     mounted: function() {
         this.fetchUsers();
+
+        eventBus.$on('fetchUser', () => this.fetchUsers())
     },
 
     methods: {
@@ -243,7 +245,7 @@ export default {
 
                     $('#exampleModal').modal('hide')
                     
-                    this.fetchUsers();
+                    eventBus.$emit('fetchUser')
                 })
                 .catch(error => {
                     this.$Progress.fail()
