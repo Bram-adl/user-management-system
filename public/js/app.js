@@ -2227,7 +2227,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Users",
   data: function data() {
@@ -2241,6 +2240,13 @@ __webpack_require__.r(__webpack_exports__);
         photo: ""
       })
     };
+  },
+  methods: {
+    createUser: function createUser() {
+      this.form.post('api/user').then(function (response) {
+        console.log(response.data);
+      });
+    }
   }
 });
 
@@ -39025,10 +39031,7 @@ var render = function() {
                 on: {
                   submit: function($event) {
                     $event.preventDefault()
-                    return _vm.login($event)
-                  },
-                  keydown: function($event) {
-                    return _vm.form.onKeydown($event)
+                    return _vm.createUser($event)
                   }
                 }
               },

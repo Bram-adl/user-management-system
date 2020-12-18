@@ -85,8 +85,7 @@
                     </div>
                     <form
                         autocomplete="off"
-                        @submit.prevent="login"
-                        @keydown="form.onKeydown($event)"
+                        @submit.prevent="createUser"
                     >
                         <div class="modal-body">
                             <div class="form-group">
@@ -217,6 +216,15 @@ export default {
                 photo: ""
             })
         };
+    },
+
+    methods: {
+        createUser: function () {
+            this.form.post('api/user')
+                .then(response => {
+                    console.log(response.data)
+                })
+        }
     }
 };
 </script>
