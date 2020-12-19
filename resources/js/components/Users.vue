@@ -11,8 +11,7 @@
                             <button
                                 type="button"
                                 class="btn btn-success"
-                                data-toggle="modal"
-                                data-target="#exampleModal"
+                                @click="showAddModal"
                             >
                                 <i class="fas fa-user-plus mr-1"></i>
                                 <span>Add user</span>
@@ -43,7 +42,10 @@
                                     <td>{{ user.level | capitalize }}</td>
                                     <td>{{ user.created_at | time }}</td>
                                     <td>
-                                        <button class="btn btn-success btn-sm">
+                                        <button 
+                                            class="btn btn-success btn-sm"
+                                            @click="showEditModal(user)"
+                                        >
                                             <i class="fas fa-edit"></i>
                                         </button>
                                         |
@@ -76,7 +78,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">
-                            Add New User
+                            {{ isModalAdd ? 'Add New User' : 'Edit User' }}
                         </h5>
                         <button
                             type="button"
@@ -191,8 +193,11 @@
                             >
                                 Close
                             </button>
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary" v-if="isModalAdd">
                                 Create User
+                            </button>
+                            <button type="submit" class="btn btn-primary" v-else>
+                                Update User
                             </button>
                         </div>
                     </form>
@@ -209,6 +214,8 @@ export default {
     data: function() {
         return {
             users: {},
+
+            isModalAdd: true,
 
             form: new Form({
                 name: "",
@@ -228,6 +235,27 @@ export default {
     },
 
     methods: {
+        showAddModal: function () {
+            this.isModalAdd = true
+            
+            // reset the form from pre-filled values
+            this.form.reset()
+
+            // clear the form from errors
+            this.form.clear()
+            
+            $('#exampleModal').modal('show')
+        },
+
+        showEditModal: function (user) {
+            this.isModalAdd = false
+
+            // fill the form with the given user
+            this.form.fill(user)
+            
+            $('#exampleModal').modal('show')
+        },
+
         fetchUsers: function() {
             axios.get("api/user").then(({ data }) => {
                 this.users = data.data;
