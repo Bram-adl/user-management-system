@@ -43,13 +43,16 @@
                                     <td>{{ user.level | capitalize }}</td>
                                     <td>{{ user.created_at | time }}</td>
                                     <td>
-                                        <a href="#" class="green">
+                                        <button class="btn btn-success btn-sm">
                                             <i class="fas fa-edit"></i>
-                                        </a>
+                                        </button>
                                         |
-                                        <a href="#" class="red">
+                                        <button
+                                            class="btn btn-danger btn-sm"
+                                            @click="deleteUser(user.id)"
+                                        >
                                             <i class="fas fa-trash"></i>
-                                        </a>
+                                        </button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -221,7 +224,7 @@ export default {
     mounted: function() {
         this.fetchUsers();
 
-        eventBus.$on('fetchUser', () => this.fetchUsers())
+        eventBus.$on("fetchUser", () => this.fetchUsers());
     },
 
     methods: {
@@ -232,24 +235,64 @@ export default {
         },
 
         createUser: function() {
-            this.$Progress.start()
-            
-            this.form.post("api/user")
+            this.$Progress.start();
+
+            this.form
+                .post("api/user")
                 .then(() => {
-                    this.$Progress.finish()
+                    this.$Progress.finish();
 
                     Toast.fire({
-                        icon: 'success',
-                        title: 'User created successfully.'
-                    })
+                        icon: "success",
+                        title: "User created successfully."
+                    });
 
-                    $('#exampleModal').modal('hide')
-                    
-                    eventBus.$emit('fetchUser')
+                    $("#exampleModal").modal("hide");
+
+                    eventBus.$emit("fetchUser");
                 })
                 .catch(error => {
-                    this.$Progress.fail()
+                    this.$Progress.fail();
                 });
+        },
+
+        deleteUser: function(id) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then(result => {
+                if (result.isConfirmed) {
+                    this.$Progress.start();
+
+                    axios
+                        .delete(`api/user/${id}`)
+                        .then(response => {
+                            this.$Progress.finish();
+
+                            Swal.fire(
+                                "Deleted!",
+                                "User deleted successfully.",
+                                "success"
+                            );
+
+                            eventBus.$emit("fetchUser");
+                        })
+                        .catch(error => {
+                            this.$Progress.fail();
+
+                            Swal.fire({
+                                icon: "error",
+                                title: "Failed to delete user.",
+                                text: "Something went wrong!",
+                            });
+                        });
+                }
+            });
         }
     }
 };

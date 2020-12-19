@@ -2225,6 +2225,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Users",
   data: function data() {
@@ -2244,7 +2247,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     this.fetchUsers();
-    eventBus.$on('fetchUser', function () {
+    eventBus.$on("fetchUser", function () {
       return _this.fetchUsers();
     });
   },
@@ -2265,13 +2268,45 @@ __webpack_require__.r(__webpack_exports__);
         _this3.$Progress.finish();
 
         Toast.fire({
-          icon: 'success',
-          title: 'User created successfully.'
+          icon: "success",
+          title: "User created successfully."
         });
-        $('#exampleModal').modal('hide');
-        eventBus.$emit('fetchUser');
+        $("#exampleModal").modal("hide");
+        eventBus.$emit("fetchUser");
       })["catch"](function (error) {
         _this3.$Progress.fail();
+      });
+    },
+    deleteUser: function deleteUser(id) {
+      var _this4 = this;
+
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this4.$Progress.start();
+
+          axios["delete"]("api/user/".concat(id)).then(function (response) {
+            _this4.$Progress.finish();
+
+            Swal.fire("Deleted!", "User deleted successfully.", "success");
+            eventBus.$emit("fetchUser");
+          })["catch"](function (error) {
+            _this4.$Progress.fail();
+
+            Swal.fire({
+              icon: "error",
+              title: "Failed to delete user.",
+              text: "Something went wrong!"
+            });
+          });
+        }
       });
     }
   }
@@ -64267,7 +64302,24 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(_vm._f("time")(user.created_at)))]),
                     _vm._v(" "),
-                    _vm._m(2, true)
+                    _c("td", [
+                      _vm._m(2, true),
+                      _vm._v(
+                        "\n                                    |\n                                    "
+                      ),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger btn-sm",
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteUser(user.id)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fas fa-trash" })]
+                      )
+                    ])
                   ])
                 }),
                 0
@@ -64600,16 +64652,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("a", { staticClass: "green", attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fas fa-edit" })
-      ]),
-      _vm._v(
-        "\n                                    |\n                                    "
-      ),
-      _c("a", { staticClass: "red", attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fas fa-trash" })
-      ])
+    return _c("button", { staticClass: "btn btn-success btn-sm" }, [
+      _c("i", { staticClass: "fas fa-edit" })
     ])
   },
   function() {
