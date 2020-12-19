@@ -89,7 +89,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form autocomplete="off" @submit.prevent="createUser">
+                    <form autocomplete="off" @submit.prevent="isModalAdd ? createUser() : updateUser()">
                         <div class="modal-body">
                             <div class="form-group">
                                 <input
@@ -218,6 +218,7 @@ export default {
             isModalAdd: true,
 
             form: new Form({
+                id: "",
                 name: "",
                 email: "",
                 password: "",
@@ -282,6 +283,33 @@ export default {
                 .catch(error => {
                     this.$Progress.fail();
                 });
+        },
+
+        updateUser: function () {
+            this.$Progress.start()
+
+            this.form.put(`api/user/${this.form.id}`)
+                .then(response => {
+                    this.$Progress.finish()
+
+                    Toast.fire({
+                        icon: "success",
+                        title: "User updated successfully."
+                    });
+
+                    $("#exampleModal").modal("hide");
+
+                    eventBus.$emit('fetchUser')
+                })
+                .catch(error => {
+                    this.$Progress.fail()
+
+                    Swal.fire({
+                        icon: "error",
+                        title: "Failed to delete user.",
+                        text: "Something went wrong!",
+                    });
+                })
         },
 
         deleteUser: function(id) {

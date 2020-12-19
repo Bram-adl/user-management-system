@@ -2240,6 +2240,7 @@ __webpack_require__.r(__webpack_exports__);
       users: {},
       isModalAdd: true,
       form: new Form({
+        id: "",
         name: "",
         email: "",
         password: "",
@@ -2297,8 +2298,31 @@ __webpack_require__.r(__webpack_exports__);
         _this3.$Progress.fail();
       });
     },
-    deleteUser: function deleteUser(id) {
+    updateUser: function updateUser() {
       var _this4 = this;
+
+      this.$Progress.start();
+      this.form.put("api/user/".concat(this.form.id)).then(function (response) {
+        _this4.$Progress.finish();
+
+        Toast.fire({
+          icon: "success",
+          title: "User updated successfully."
+        });
+        $("#exampleModal").modal("hide");
+        eventBus.$emit('fetchUser');
+      })["catch"](function (error) {
+        _this4.$Progress.fail();
+
+        Swal.fire({
+          icon: "error",
+          title: "Failed to delete user.",
+          text: "Something went wrong!"
+        });
+      });
+    },
+    deleteUser: function deleteUser(id) {
+      var _this5 = this;
 
       Swal.fire({
         title: "Are you sure?",
@@ -2310,15 +2334,15 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: "Yes, delete it!"
       }).then(function (result) {
         if (result.isConfirmed) {
-          _this4.$Progress.start();
+          _this5.$Progress.start();
 
           axios["delete"]("api/user/".concat(id)).then(function (response) {
-            _this4.$Progress.finish();
+            _this5.$Progress.finish();
 
             Swal.fire("Deleted!", "User deleted successfully.", "success");
             eventBus.$emit("fetchUser");
           })["catch"](function (error) {
-            _this4.$Progress.fail();
+            _this5.$Progress.fail();
 
             Swal.fire({
               icon: "error",
@@ -64419,7 +64443,7 @@ var render = function() {
                 on: {
                   submit: function($event) {
                     $event.preventDefault()
-                    return _vm.createUser($event)
+                    _vm.isModalAdd ? _vm.createUser() : _vm.updateUser()
                   }
                 }
               },

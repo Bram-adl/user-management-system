@@ -27,7 +27,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'level' => 'required|string',
@@ -64,7 +64,23 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,'.$user->id,
+            'level' => 'required|string',
+            'password' => 'sometimes|string|min:4',
+        ]);
+
+        return $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'level' => $request->level,
+            'biography' => $request->biography,
+            'password' => Hash::make($request->password),
+            'photo' => $request->photo,
+        ]);
     }
 
     /**
